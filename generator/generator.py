@@ -2,7 +2,9 @@ import csv
 import random
 from scipy.spatial import ConvexHull
 
-# Генерация тестовых данных
+JAVA_TEST_RESOURCES_PATH = "../jarvis/src/test/resources/"
+
+# Generate test data
 def generate_test_data(n_points):
     points = set()
     while len(points) < n_points:
@@ -19,23 +21,23 @@ for i in range(10):
     test_sets.append(points)
 
 
-# Вычисление правильных результатов
+# Calculate expected results
 def convex_hull_algorithm(points):
     hull = ConvexHull(points)
     return hull.vertices.tolist()
 
 
-# Запись тестовых наборов данных и правильных результатов в CSV файлы
+# Write test data and expected results
 for i, points in enumerate(test_sets):
-    # Запись тестовых данных
-    with open(f'test_data_{i}.csv', 'w', newline='') as csvfile:
+    # Write test results
+    with open(JAVA_TEST_RESOURCES_PATH + f'test_data_{i}.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(['x', 'y'])
         for point in points:
             writer.writerow(point)
 
-    # Запись правильных результатов
-    with open(f'expected_result_{i}.csv', 'w', newline='') as csvfile:
+    # Write expected results
+    with open(JAVA_TEST_RESOURCES_PATH + f'expected_result_{i}.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(['index'])
         hull_indices = convex_hull_algorithm(points)
