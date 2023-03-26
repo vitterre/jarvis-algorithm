@@ -1,7 +1,5 @@
 package ru.itis.ads.jarvis;
 
-import ru.itis.ads.jarvis.point.Point;
-
 import java.util.List;
 
 public class Main {

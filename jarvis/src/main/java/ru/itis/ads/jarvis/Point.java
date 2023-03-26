@@ -1,4 +1,4 @@
-package ru.itis.ads.jarvis.point;
+package ru.itis.ads.jarvis;
 
 import java.util.Objects;
 
