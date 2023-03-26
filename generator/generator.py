@@ -1,11 +1,15 @@
 import numpy as np
 from scipy.spatial import ConvexHull
 import csv
+import os
 
 JAVA_TEST_RESOURCES_PATH = "../jarvis/src/test/resources/"
 
-for i in range(10):
-    points = np.random.randint(-100, 100, size=(100, 2))
+if not os.path.exists(JAVA_TEST_RESOURCES_PATH):
+    os.makedirs(JAVA_TEST_RESOURCES_PATH)
+
+for i in range(100):
+    points = np.random.randint(-100, 100, size=(10000, 2))
 
     hull = ConvexHull(points)
     convex_hull_points = points[hull.vertices]
