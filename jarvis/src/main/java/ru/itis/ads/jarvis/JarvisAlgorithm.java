@@ -35,10 +35,12 @@ public final class JarvisAlgorithm {
 		// Initialize an empty list to hold the points on the convex hull
 		List<Point> hull = new ArrayList<>();
 
-		// Find the point with the smallest x-coordinate as the starting point
+		// Find the point with the smallest x and y coordinates as the starting point
 		Point startPoint = points.get(0);
 		for (Point p : points) {
 			if (p.x < startPoint.x) {
+				startPoint = p;
+			} else if (p.x.equals(startPoint.x) && p.y < startPoint.y) {
 				startPoint = p;
 			}
 		}
