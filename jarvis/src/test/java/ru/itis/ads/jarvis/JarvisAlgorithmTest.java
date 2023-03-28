@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -24,7 +25,11 @@ class JarvisAlgorithmTest {
 
 	@ParameterizedTest
 	@MethodSource("testData")
-	public void testJarvisAlgorithm(final String testDataFileName, final String expectedOutputFileName) throws IOException {
+	public void testJarvisAlgorithm(final String testDataFileName, final String expectedOutputFileName, final TestInfo testInfo) throws IOException {
+		System.out.println(testInfo.getDisplayName());
+
+		JarvisAlgorithm.ENABLE_PROFILING = true;
+		JarvisAlgorithm.PROFILING_OUTPUT_IN_CONSOLE = true;
 		final List<Point> testData = readCSVFile(CSV_FILE_PATH + testDataFileName);
 		final List<Point> expectedResults = readCSVFile(CSV_FILE_PATH + expectedOutputFileName);
 

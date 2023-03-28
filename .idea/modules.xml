@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/jarvis-algorithm.iml" filepath="$PROJECT_DIR$/jarvis-algorithm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/profiler/profiler.iml" filepath="$PROJECT_DIR$/profiler/profiler.iml" />
     </modules>
   </component>
 </project>
