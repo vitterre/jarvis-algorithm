@@ -1,27 +1,27 @@
 package ru.itis.ads.jarvis;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class JarvisAlgorithmTest {
 
 	private final String CSV_FILE_PATH = "src/test/resources/";
+
+	@BeforeAll
+	public static void deleteLogFile() {
+		new File("log.csv").delete();
+	}
 
 	@ParameterizedTest
 	@MethodSource("testData")

@@ -103,7 +103,7 @@ public final class JarvisAlgorithm {
 				System.out.println("Iterations: " + iterations);
 			}
 
-			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("log.txt", true));
+			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("log.csv", true));
 			bufferedWriter.write(String.valueOf(end - start) + ","
 							+ iterations + ","
 							+ points.size() + ","

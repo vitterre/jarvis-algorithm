@@ -6,7 +6,7 @@ execution_times = []
 iteration_counts = []
 solution_sizes = []
 
-with open('../jarvis/log.txt') as f:
+with open('../jarvis/log.csv') as f:
     for line in f:
         values = tuple(map(int, line.strip().split(',')))
         array_size, execution_time, iteration_count, solution_size = values[2], values[0], values[1], values[3]
