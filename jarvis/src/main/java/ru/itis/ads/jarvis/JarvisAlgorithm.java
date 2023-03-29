@@ -1,5 +1,8 @@
 package ru.itis.ads.jarvis;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,12 @@ import java.util.List;
  */
 public final class JarvisAlgorithm {
 
+	/*----- Static fields -----*/
+
+	public static Boolean ENABLE_PROFILING = false;
+	public static Boolean PROFILING_OUTPUT_IN_CONSOLE = false;
+
+
 	/*----- Public methods -----*/
 
 	/**
@@ -26,7 +35,10 @@ public final class JarvisAlgorithm {
 	 * @return the list of points on the convex hull in clockwise order.
 	 * @throws IllegalArgumentException if the input list contains less than 3 points.
 	 */
-	public static List<Point> createConvexHull(final List<Point> points) {
+	public static List<Point> createConvexHull(final List<Point> points) throws IOException {
+		final Long start = System.nanoTime();
+		Integer iterations = 0;
+
 		// Check that the input list contains at least 3 points
 		if (points.size() < 3) {
 			throw new IllegalArgumentException("At least 3 points are required!");
@@ -35,12 +47,15 @@ public final class JarvisAlgorithm {
 		// Initialize an empty list to hold the points on the convex hull
 		List<Point> hull = new ArrayList<>();
 
-		// Find the point with the smallest x-coordinate as the starting point
+		// Find the point with the smallest x and y coordinates as the starting point
 		Point startPoint = points.get(0);
 		for (Point p : points) {
 			if (p.x < startPoint.x) {
 				startPoint = p;
+			} else if (p.x.equals(startPoint.x) && p.y < startPoint.y) {
+				startPoint = p;
 			}
+			iterations++;
 		}
 
 		// Set the starting point as the current point on the hull
@@ -70,11 +85,31 @@ public final class JarvisAlgorithm {
 								|| (crossProduct == 0 && distance(current, points.get(i)) > distance(current, next))) {
 					next = points.get(i);
 				}
+
+				iterations++;
 			}
+
+			iterations++;
 
 			// Set the next point as the current point for the next iteration
 			current = next;
 		} while (!current.equals(startPoint));
+
+		final Long end = System.nanoTime();
+
+		if (ENABLE_PROFILING) {
+			if (PROFILING_OUTPUT_IN_CONSOLE) {
+				System.out.println("Estimated time: " + (end - start));
+				System.out.println("Iterations: " + iterations);
+			}
+
+			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("log.csv", true));
+			bufferedWriter.write(String.valueOf(end - start) + ","
+							+ iterations + ","
+							+ points.size() + ","
+							+ hull.size() + "\n");
+			bufferedWriter.close();
+		}
 
 		// Return the list of points on the convex hull in clockwise order
 		return new ArrayList<>(hull);
